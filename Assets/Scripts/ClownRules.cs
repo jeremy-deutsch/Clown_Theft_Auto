@@ -39,10 +39,6 @@ public class ClownRules : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("clone car"))
-        {
-            gameController.NextLevel();
-        }
         if (other.gameObject.CompareTag("freezes you"))
         {
             movementSpeed = 0;

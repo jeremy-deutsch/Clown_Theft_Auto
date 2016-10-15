@@ -20,5 +20,14 @@ public class PlayerController : MonoBehaviour {
         this.transform.Translate(new Vector3(horizontal, vertical, 0) * cr.GetMovementSpeed() * Time.deltaTime);
     }
 
+    void OnTriggerEnter2D (Collider2D other)
+    {
+        
+        if (other.gameObject.CompareTag("clone car"))
+        {
+            Debug.Log("reached the clone car");
+            gameController.NextLevel();
+        }
+    }
     
 }
