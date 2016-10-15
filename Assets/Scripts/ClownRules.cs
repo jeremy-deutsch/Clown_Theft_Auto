@@ -43,16 +43,20 @@ public class ClownRules : MonoBehaviour {
         {
             gameController.NextLevel();
         }
-        if (other.gameObject.CompareTag("slows you down"))
-        {
-            movementSpeed = slowMovementSpeed;
-            slowMovementBuffer = 0;
-        }
         if (other.gameObject.CompareTag("freezes you"))
         {
             movementSpeed = 0;
             frozenBuffer = 0;
-            other.gameObject
+            Destroy(other.gameObject, freezeRecoveryTime / 2);
+        }
+    }
+
+    void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("slows you down"))
+        {
+            movementSpeed = slowMovementSpeed;
+            slowMovementBuffer = 0;
         }
     }
 
