@@ -56,6 +56,7 @@ public class GameController : MonoBehaviour {
 
         player.gameObject.GetComponent<ClownRules>().ResetMovementSpeed();
         tempLevelStuff = new List<GameObject>();
+        cloneCars = new List<GameObject>();
 
         for (int i = 0; i < level; i++)
         {
