@@ -16,6 +16,7 @@ public class ClownRules : MonoBehaviour {
     // Use this for initialization
     void Start () {
         slowMovementBuffer = slowMoveRecoveryTime;
+        frozenBuffer = freezeRecoveryTime;
     }
 	
 	// Update is called once per frame
@@ -59,5 +60,12 @@ public class ClownRules : MonoBehaviour {
     public float GetMovementSpeed()
     {
         return movementSpeed;
+    }
+
+    public void ResetMovementSpeed ()
+    {
+        frozenBuffer = freezeRecoveryTime;
+        slowMovementBuffer = slowMoveRecoveryTime;
+        movementSpeed = normalMovementSpeed;
     }
 }

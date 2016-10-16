@@ -7,17 +7,23 @@ public class OtherClownAI : MonoBehaviour {
 
     ClownRules cr;
 
-    private float tendency;
+    private float directionalTendency;
+    private float speedTendency;
 
 	// Use this for initialization
 	void Start () {
         cr = this.GetComponent<ClownRules>();
-        tendency = Random.Range(movementVariance * -1, movementVariance);
-	}
+        directionalTendency = Random.Range(movementVariance * -1, movementVariance);
+        speedTendency = Random.Range(0.4f, 1.0f);
+    }
 	
 	// Update is called once per frame
 	void Update () {
-        transform.Translate(new Vector3(Random.Range(0.7f, 1.0f), tendency * Random.Range(0, 1.0f)) * cr.GetMovementSpeed() * Time.deltaTime);
+
+
+        float xTranslation = Random.Range(speedTendency, 1.0f) * cr.GetMovementSpeed() * Time.deltaTime;
+        float yTranslation = (directionalTendency * Random.Range(0, 1.0f) * cr.GetMovementSpeed()) * Time.deltaTime;
+        transform.Translate(new Vector3(xTranslation, yTranslation));
 	}
 
     void OnTriggerEnter (Collider other)

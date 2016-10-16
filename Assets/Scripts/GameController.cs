@@ -5,12 +5,14 @@ using System.Collections.Generic;
 public class GameController : MonoBehaviour {
 
     public PlayerController player;
-    public GameObject cloneCars;
     public GameObject otherClownsPrefab;
     public GameObject[] obstaclePrefabs;
-    public int howManyObstacles;
+    public int startingObstacleNumber;
+    public GameObject cloneCarsPrefab;
+    public float cloneCarSpawnPoint;
 
     int level;
+    List<GameObject> cloneCars;
     List<GameObject> tempLevelStuff;
     int obstaclesUnlocked;
     
@@ -19,7 +21,8 @@ public class GameController : MonoBehaviour {
 	void Start () {
         obstaclesUnlocked = 2;
         tempLevelStuff = new List<GameObject>();
-        level = 0;
+        cloneCars = new List<GameObject>();
+        level = 2;
 
         StartLevel();
 	}
@@ -34,10 +37,13 @@ public class GameController : MonoBehaviour {
         {
             Destroy(item);
         }
-        tempLevelStuff = new List<GameObject>();
+        foreach (GameObject item in cloneCars)
+        {
+            Destroy(item);
+        }
 
         // pump up the difficulty
-
+        level++;
         StartLevel();
     }
 
@@ -47,17 +53,33 @@ public class GameController : MonoBehaviour {
 
     void StartLevel ()
     {
+
+        player.gameObject.GetComponent<ClownRules>().ResetMovementSpeed();
+        tempLevelStuff = new List<GameObject>();
+
+        for (int i = 0; i < level; i++)
+        {
+            Vector3 location = new Vector3(cloneCarSpawnPoint, 4.0f - (8.0f / (level + 1)) * (i + 1));
+            cloneCars.Add((GameObject)Instantiate(cloneCarsPrefab, location, Quaternion.identity));
+        }
+
+        int howManyObstacles = (int)(startingObstacleNumber * Mathf.Log(level, 2));
         for (int i = 0; i < howManyObstacles; i++)
         {
             GameObject obstacleToSpawn = obstaclePrefabs[Random.Range(0, obstaclesUnlocked)];
             tempLevelStuff.Add((GameObject)Instantiate(obstacleToSpawn, new Vector3(Random.Range(-4.0f, 4.0f), Random.Range(-4.0f, 4.0f)), Quaternion.identity));
         }
 
-        player.transform.position = new Vector3(-5.0f, 0);
+        player.ResetPosition();
         tempLevelStuff.Add((GameObject)Instantiate(otherClownsPrefab, new Vector3(-5.0f, 1), Quaternion.identity));
         tempLevelStuff.Add((GameObject)Instantiate(otherClownsPrefab, new Vector3(-5.0f, 2), Quaternion.identity));
         tempLevelStuff.Add((GameObject)Instantiate(otherClownsPrefab, new Vector3(-5.0f, -1), Quaternion.identity));
         tempLevelStuff.Add((GameObject)Instantiate(otherClownsPrefab, new Vector3(-5.0f, -2), Quaternion.identity));
 
+    }
+
+    public List<GameObject> GetCloneCars ()
+    {
+        return this.cloneCars;
     }
 }

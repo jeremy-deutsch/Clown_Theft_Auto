@@ -29,5 +29,11 @@ public class PlayerController : MonoBehaviour {
             gameController.NextLevel();
         }
     }
+
+    public void ResetPosition ()
+    {
+        this.transform.position = new Vector3(-5.0f, 0);
+        cr.ResetMovementSpeed();
+    }
     
 }
