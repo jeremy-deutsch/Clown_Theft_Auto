@@ -60,7 +60,6 @@ public class OtherClownAI : MonoBehaviour {
 
     float targetACar()
     {
-        List<GameObject> cars = gameController.GetCloneCars();
         float targetedArea = transform.position.y + Random.Range(-0.2f, 0.2f);
         float lowBall = -1000.0f;
         float highBall = 1000.0f;

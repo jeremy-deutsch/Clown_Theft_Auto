@@ -38,6 +38,10 @@ public class GameController : MonoBehaviour {
         {
             Application.Quit();
         }
+        if (!(GetComponent<AudioSource>().isPlaying))
+        {
+            GetComponent<AudioSource>().Play();
+        }
     }
 
     public void NextLevel() {
@@ -87,7 +91,8 @@ public class GameController : MonoBehaviour {
         for (int i = 0; i < level - 1; i++)
         {
             Vector3 location = new Vector3(-5, cloneCarRange - ((cloneCarRange * 2) / (level)) * (i + 1));
-            fakeCloneCars.Add((GameObject)Instantiate(cloneCarsPrefab, location, Quaternion.identity));
+            GameObject thisCar = (GameObject)Instantiate(cloneCarsPrefab, location, Quaternion.identity);
+            fakeCloneCars.Add(thisCar);
         }
 
         int whichClownAreYou = Random.Range(0, fakeCloneCars.Count * 4);
