@@ -31,20 +31,22 @@ public class OtherClownAI : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
-
-        float xTranslation = Random.Range(speedTendency, 1.0f) * cr.GetMovementSpeed() * Time.deltaTime;
-        float carTendency;
-        if (this.transform.position.y > targetedCarHeight)
+        if (gameController.everyoneCanMove())
         {
-            carTendency = Random.Range(0.5f, 1.0f);
+
+            float xTranslation = Random.Range(speedTendency, 1.0f) * cr.GetMovementSpeed() * Time.deltaTime;
+            float carTendency;
+            if (this.transform.position.y > targetedCarHeight)
+            {
+                carTendency = Random.Range(0.5f, 1.0f);
+            }
+            else
+            {
+                carTendency = Random.Range(-1.0f, -0.5f);
+            }
+            float yTranslation = (directionalTendency * Random.Range(0, 1.0f) + carTendency) * cr.GetMovementSpeed() * Time.deltaTime;
+            transform.Translate(new Vector3(xTranslation, yTranslation));
         }
-        else
-        {
-            carTendency = Random.Range(-1.0f, -0.5f);
-        }
-        float yTranslation = (directionalTendency * Random.Range(0, 1.0f) + carTendency) * cr.GetMovementSpeed() * Time.deltaTime;
-        transform.Translate(new Vector3(xTranslation, yTranslation));
 	}
 
     void OnTriggerEnter (Collider other)

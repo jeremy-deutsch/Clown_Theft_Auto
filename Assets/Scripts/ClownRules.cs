@@ -24,6 +24,7 @@ public class ClownRules : MonoBehaviour {
         if (frozenBuffer < freezeRecoveryTime) // if you're frozen, increment toward becoming unfrozen
         {
             movementSpeed = 0;
+            this.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation | RigidbodyConstraints2D.FreezePosition;
             frozenBuffer += Time.deltaTime;
         }
         else if (slowMovementBuffer < slowMoveRecoveryTime) // slowdown recovery pauses when you're frozen
@@ -33,6 +34,8 @@ public class ClownRules : MonoBehaviour {
         }
         else
         {
+            this.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
+            
             movementSpeed = normalMovementSpeed; // if you're no longer frozen or slow, move normally
         }
         
@@ -44,7 +47,8 @@ public class ClownRules : MonoBehaviour {
         {
             movementSpeed = 0;
             frozenBuffer = 0;
-            Destroy(other.gameObject, freezeRecoveryTime / 2);
+            this.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation | RigidbodyConstraints2D.FreezePosition;
+            Destroy(other.gameObject, freezeRecoveryTime);
         }
     }
 
