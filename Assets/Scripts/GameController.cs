@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
 
@@ -12,6 +13,7 @@ public class GameController : MonoBehaviour {
     public GameObject fakeCloneCarPrefab;
     public float cloneCarSpawnPoint;
     public float cloneCarRange;
+    public Text scoreText;
 
     int level;
     List<GameObject> cloneCars;
@@ -19,6 +21,7 @@ public class GameController : MonoBehaviour {
     List<GameObject> fakeCloneCars;
     int obstaclesUnlocked;
     bool canEveryoneMove;
+    int score;
 
 
     // Use this for initialization
@@ -28,6 +31,7 @@ public class GameController : MonoBehaviour {
         cloneCars = new List<GameObject>();
         fakeCloneCars = new List<GameObject>();
         level = 2;
+        score = 0;
 
         StartLevel();
     }
@@ -60,6 +64,8 @@ public class GameController : MonoBehaviour {
 
         // pump up the difficulty
         level++;
+        score++;
+        scoreText.text = "Score: " + score;
         StartLevel();
     }
 
@@ -91,7 +97,7 @@ public class GameController : MonoBehaviour {
         for (int i = 0; i < level - 1; i++)
         {
             Vector3 location = new Vector3(-5, cloneCarRange - ((cloneCarRange * 2) / (level)) * (i + 1));
-            GameObject thisCar = (GameObject)Instantiate(cloneCarsPrefab, location, Quaternion.identity);
+            GameObject thisCar = (GameObject)Instantiate(fakeCloneCarsPrefab, location, Quaternion.identity);
             fakeCloneCars.Add(thisCar);
         }
 

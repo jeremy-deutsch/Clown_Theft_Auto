@@ -36,7 +36,7 @@ public class OtherClownAI : MonoBehaviour {
 
             float xTranslation = Random.Range(speedTendency, 1.0f) * cr.GetMovementSpeed() * Time.deltaTime;
             float carTendency;
-            if (this.transform.position.y > targetedCarHeight)
+            if (this.transform.position.y < targetedCarHeight)
             {
                 carTendency = Random.Range(0.5f, 1.0f);
             }
