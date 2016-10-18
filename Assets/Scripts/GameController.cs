@@ -97,7 +97,7 @@ public class GameController : MonoBehaviour {
         for (int i = 0; i < level - 1; i++)
         {
             Vector3 location = new Vector3(-5, cloneCarRange - ((cloneCarRange * 2) / (level)) * (i + 1));
-            GameObject thisCar = (GameObject)Instantiate(fakeCloneCarsPrefab, location, Quaternion.identity);
+            GameObject thisCar = (GameObject)Instantiate(fakeCloneCarPrefab, location, Quaternion.identity);
             fakeCloneCars.Add(thisCar);
         }
 

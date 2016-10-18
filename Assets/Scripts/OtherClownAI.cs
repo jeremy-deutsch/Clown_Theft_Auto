@@ -21,12 +21,10 @@ public class OtherClownAI : MonoBehaviour {
         GameObject thing = GameObject.FindWithTag("GameController");
         if(thing != null)
         {
-            Debug.Log("We found a GameController!");
             gameController = thing.GetComponent<GameController>();
 
         }
         targetedCarHeight = targetACar();
-        Debug.Log("My target height is " + targetedCarHeight + "!");
     }
 	
 	// Update is called once per frame
@@ -38,21 +36,22 @@ public class OtherClownAI : MonoBehaviour {
             float carTendency;
             if (this.transform.position.y < targetedCarHeight)
             {
-                carTendency = Random.Range(0.5f, 1.0f);
+                carTendency = Random.Range(0, 0.5f);
             }
             else
             {
-                carTendency = Random.Range(-1.0f, -0.5f);
+                carTendency = Random.Range(-0.5f, 0);
             }
             float yTranslation = (directionalTendency * Random.Range(0, 1.0f) + carTendency) * cr.GetMovementSpeed() * Time.deltaTime;
             transform.Translate(new Vector3(xTranslation, yTranslation));
         }
 	}
 
-    void OnTriggerEnter (Collider other)
+    void OnTriggerEnter2D (Collider2D other)
     {
         if (other.gameObject.CompareTag("clone car"))
         {
+            Debug.Log("I, another clown, touched a clown car");
             other.gameObject.SetActive(false);
             this.gameObject.SetActive(false);
         }
